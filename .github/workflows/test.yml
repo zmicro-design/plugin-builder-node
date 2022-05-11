@@ -62,13 +62,15 @@ jobs:
           fetch-depth: '0'
 
       - name: Install Zmicro
-        run: curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | bash
+        run: |
+          curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | bash
+          zmicro -v
 
       - name: Install Plugin
         run: zmicro plugin install builder-node
 
       - name: Run Test Cases
-        run: zmicro run core
+        run: ls -al && zmicro run core
 
       - name: Show Version
         run: zmicro builder-node -v
