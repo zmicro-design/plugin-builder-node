@@ -67,5 +67,8 @@ jobs:
       - name: Install Plugin
         run: zmicro plugin install builder-node
 
+      - name: Run Test Cases
+        run: zmicro run core
+
       - name: Show Version
         run: zmicro builder-node -v
