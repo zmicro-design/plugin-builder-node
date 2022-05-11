@@ -64,5 +64,8 @@ jobs:
       - name: Install Zmicro
         run: curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | bash
 
+      - name: Install Plugin
+        run: zmicro plugin install builder-node
+
       - name: Show Version
         run: zmicro builder-node -v
