@@ -11,7 +11,7 @@ help() {
 }
 
 core() {
-  echo "SUCCESS" > .job_status
+  pipeline::success
 }
 
 run() {

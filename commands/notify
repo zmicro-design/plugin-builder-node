@@ -12,7 +12,7 @@ core() {
   local title=$1
   local message=$2
 
-  nobot -t "$title" -m "$message"
+  builder::notify "$title" "$message"
 }
 
 run() {

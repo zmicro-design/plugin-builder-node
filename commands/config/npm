@@ -9,10 +9,7 @@ help() {
 }
 
 core() {
-  assert "$NPM_AUTH_TOKEN"  "env NPM_AUTH_TOKEN is required"
-
-  echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
-  echo "//registry.npmjs.org/:always-auth=true" >> .npmrc
+  config::npm
 }
 
 run() {

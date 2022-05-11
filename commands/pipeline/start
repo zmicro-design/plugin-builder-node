@@ -11,10 +11,7 @@ help() {
 }
 
 core() {
-  echo "FAIL" > .job_status
-
-  zmicro builder-node config git
-  zmicro builder-node config npm
+  pipeline::start
 }
 
 run() {

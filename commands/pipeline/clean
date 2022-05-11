@@ -11,13 +11,7 @@ help() {
 }
 
 core() {
-  if [ -f ".job_status" ]; then
-    rm .job_status
-  fi
-
-  if [ -f ".npmrc" ]; then
-    rm .npmrc
-  fi
+  pipeline::clean
 }
 
 run() {

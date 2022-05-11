@@ -9,9 +9,7 @@ help() {
 }
 
 core() {
-  if [ -f "$PWD/.job_status" ]; then
-    cat $PWD/.job_status
-  fi
+  pipeline::status
 }
 
 run() {

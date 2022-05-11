@@ -11,8 +11,8 @@ help() {
 }
 
 core() {
-  zmicro builder-node pipeline notify
-  zmicro builder-node pipeline clean
+  pipeline::notify
+  pipeline::clean
 }
 
 run() {

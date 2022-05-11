@@ -29,5 +29,18 @@ vm::arch() {
   echo $arch
 }
 
+builder::notify() {
+  local title=$1
+  local message=$2
+  if [ -z "$title" ] || [ -z "$message" ]; then
+    log::error "[builder::notify] title and message is required"
+    exit 1
+  fi
+  
+  nobot -t "$title" -m "$message"
+}
+
 export -f vm::os
 export -f vm::arch
+
+export -f builder::notify
