@@ -70,7 +70,7 @@ jobs:
         run: zmicro plugin install builder-node
 
       - name: Run Test Cases
-        run: ls -al && zmicro run core
+        run: zmicro test core
 
       - name: Show Version
         run: zmicro builder-node -v
