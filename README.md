@@ -1,8 +1,8 @@
 # Builder Node - Node.js Builder Plugin for [ZMicro](https://github.com/zcorky/zmicro)
 
-[![Release](https://img.shields.io/github/tag/zmicro-design/plugin-rsvm.svg?label=Release)](https://github.com/zmicro-design/plugin-rsvm/tags)
-[![Build Status](https://github.com/zmicro-design/plugin-rsvm/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/zmicro-design/plugin-rsvm/actions/workflows/test.yml)
-[![GitHub issues](https://img.shields.io/github/issues/zmicro-design/plugin-rsvm.svg)](https://github.com/zmicro-design/plugin-rsvm/issues)
+[![Release](https://img.shields.io/github/tag/zmicro-design/plugin-builder-node.svg?label=Release)](https://github.com/zmicro-design/plugin-builder-node/tags)
+[![Build Status](https://github.com/zmicro-design/plugin-builder-node/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/zmicro-design/plugin-builder-node/actions/workflows/test.yml)
+[![GitHub issues](https://img.shields.io/github/issues/zmicro-design/plugin-builder-node.svg)](https://github.com/zmicro-design/plugin-builder-node/issues)
 
 
 ## Installation
