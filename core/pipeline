@@ -33,6 +33,7 @@ pipeline::notify() {
   local BRANCH=""
   local COMMIT_HASH=""
   local COMMIT_MESSAGE=""
+  local PUBLISH_MESSAGE=""
   local COMMIT_USER=""
   local PIPELINE_URL=""
   local BASE_IMAGE="-"
@@ -55,6 +56,7 @@ pipeline::notify() {
     RUNNER_NAME="${CI_SERVER_NAME} CI"
     RUNNER_VERSION=$CI_RUNNER_VERSION
     RUNNER_ARCH=$CI_RUNNER_EXECUTABLE_ARCH
+    PUBLISH_MESSAGE=$(git::commit_message)
   fi
 
   assert "$NOTIFY_URL"  "env NOTIFY_URL is required"
@@ -78,6 +80,7 @@ printf "%-12s %-20s\n" "Status:" "${STATUS}"
 printf "%-12s %-20s\n" "Repo:" "${PROJECT_URL}"
 printf "%-12s %-20s\n" "Branch:" "${BRANCH}"
 printf "%-12s %-20s\n" "Commit:" "${COMMIT_MESSAGE}"
+printf "%-12s %-20s\n" "Publish:" "${PUBLISH_MESSAGE}"
 printf "%-12s %-20s\n" "Hash:" "${COMMIT_HASH}"
 printf "%-12s %-20s\n" "Committer:" "${COMMIT_USER}"
 printf "%-12s %-20s\n" "Pipeline:" "${PIPELINE_URL}"
@@ -93,6 +96,7 @@ echo "####################"
 * Repo: ${PROJECT_URL}
 * Branch: ${BRANCH}
 * Commit: ${COMMIT_MESSAGE}
+* Publish: ${PUBLISH_MESSAGE}
 * Hash: ${COMMIT_HASH}
 * Committer: ${COMMIT_USER}
 * Pipeline: ${PIPELINE_URL}
