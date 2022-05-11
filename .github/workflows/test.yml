@@ -61,13 +61,8 @@ jobs:
         with:
           fetch-depth: '0'
 
-      - name: Install RSVM
-        run: ./install
+      - name: Install Zmicro
+        run: curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | bash
 
-      - name: Install Rust (Stable/LTS)
-        run: zmicro rsvm lts
-
-      - name: Show Rust Version
-        run: |
-          export PATH=$(zmicro rsvm bin):$PATH
-          rustc --version
+      - name: Show Version
+        run: zmicro builder-node -v
