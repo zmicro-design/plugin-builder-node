@@ -1,0 +1,45 @@
+#!/bin/bash
+
+help() {
+  echo "Config Builder Git"
+  echo ""
+  echo "Usage:"
+  echo "  builder config git"
+  echo ""
+}
+
+core() {
+  if [ -n "$CI_PROJECT_URL" ]; then
+    # GIT_USER="ci-bot"
+    GIT_EMAIL="ci-bot@runner.zcorky.com"
+    GIT_REPO=$CI_PROJECT_URL
+  fi
+
+  assert "$GIT_USER"  "env GIT_USER is required"
+  assert "$GIT_EMAIL" "env GIT_EMAIL is required"
+  assert "$GIT_TOKEN" "env GIT_TOKEN is required"
+  assert "$GIT_REPO"  "env GIT_REPO is required"
+
+  if [ -n "$CI_PROJECT_URL" ]; then
+    zmicro config git "ci-bot" "$GIT_EMAIL"
+
+  else
+    zmicro config git $GIT_USER $GIT_EMAIL
+  fi
+
+  local GIT_REPO_SCHEMA=$(echo $GIT_REPO | awk -F ':' '{print $1}')
+  local GIT_REPO_MAIN=$(echo $GIT_REPO | awk -F '//' '{print $2}')
+
+  git remote set-url origin ${GIT_REPO_SCHEMA}://${GIT_USER}:${GIT_TOKEN}@${GIT_REPO_MAIN}
+}
+
+run() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  core "$@"
+}
+
+run "$@"

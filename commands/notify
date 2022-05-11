@@ -1,0 +1,27 @@
+#!/bin/bash
+
+help() {
+  echo "Send a notification to the Feishu channel"
+  echo ""
+  echo "Usage:"
+  echo "  notify <title> <message>"
+  echo ""
+}
+
+core() {
+  local title=$1
+  local message=$2
+
+  nobot -t "$title" -m "$message"
+}
+
+run() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  core "$@"
+}
+
+run "$@"

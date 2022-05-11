@@ -1,0 +1,11 @@
+#!/bin/bash
+function test_vm::os() {
+  local expected="unknown-linux-gnu"
+  local received=$(vm::os)
+  
+  testing::expect \
+    "${FUNCNAME[0]}" \
+    "to_equal" \
+    "$expected" \
+    "$received" 
+}

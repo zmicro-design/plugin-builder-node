@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+help() {
+  echo "Start Builder Pipeline"
+  echo ""
+  echo "Usage:"
+  echo "  builder pipeline start"
+  echo ""
+}
+
+core() {
+  echo "FAIL" > .job_status
+
+  zmicro builder-node config git
+  zmicro builder-node config npm
+}
+
+run() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  core "$@"
+}
+
+run "$@"

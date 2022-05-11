@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+help() {
+  echo "Clean Builder Pipeline"
+  echo ""
+  echo "Usage:"
+  echo "  builder pipeline clean"
+  echo ""
+}
+
+core() {
+  if [ -f ".job_status" ]; then
+    rm .job_status
+  fi
+
+  if [ -f ".npmrc" ]; then
+    rm .npmrc
+  fi
+}
+
+run() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  core "$@"
+}
+
+run "$@"

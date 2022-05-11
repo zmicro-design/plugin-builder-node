@@ -1,0 +1,26 @@
+#!/bin/bash
+
+help() {
+  echo "Get Builder Pipeline Status"
+  echo ""
+  echo "Usage:"
+  echo "  builder pipeline status"
+  echo ""
+}
+
+core() {
+  if [ -f "$PWD/.job_status" ]; then
+    cat $PWD/.job_status
+  fi
+}
+
+run() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  core "$@"
+}
+
+run "$@"

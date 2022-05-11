@@ -1,0 +1,103 @@
+#!/bin/bash
+
+set -e
+
+help() {
+  echo "Finish Builder Pipeline"
+  echo ""
+  echo "Usage:"
+  echo "  builder pipeline finish"
+  echo ""
+}
+
+core() {
+  local PROJECT_NAME=""
+  local PROJECT_URL=""
+  local BRANCH=""
+  local COMMIT_HASH=""
+  local COMMIT_MESSAGE=""
+  local COMMIT_USER=""
+  local PIPELINE_URL=""
+  local BASE_IMAGE="-"
+  local GIT_SERVER="-"
+  local RUNNER_NAME="-"
+  local RUNNER_VERSION="-"
+  local RUNNER_ARCH="-"
+  local TIMESTAMP=$(zmicro fn timestamp)
+
+  if [ -n "$CI_PROJECT_NAME" ]; then
+    PROJECT_NAME=$CI_PROJECT_NAME
+    BRANCH=$CI_COMMIT_BRANCH
+    PROJECT_URL=$CI_PROJECT_URL
+    COMMIT_HASH=$CI_COMMIT_SHORT_SHA
+    COMMIT_MESSAGE=$CI_COMMIT_TITLE
+    COMMIT_USER="$GITLAB_USER_NAME($GITLAB_USER_EMAIL)"
+    PIPELINE_URL=$CI_PIPELINE_URL
+    BASE_IMAGE=$CI_JOB_IMAGE
+    GIT_SERVER="${CI_SERVER_NAME}($CI_SERVER_VERSION)"
+    RUNNER_NAME="${CI_SERVER_NAME} CI"
+    RUNNER_VERSION=$CI_RUNNER_VERSION
+    RUNNER_ARCH=$CI_RUNNER_EXECUTABLE_ARCH
+  fi
+
+  assert "$NOTIFY_URL"  "env NOTIFY_URL is required"
+  assert "$PROJECT_NAME" "env PROJECT_NAME is required"
+  assert "$PROJECT_URL" "env PROJECT_URL is required"
+  assert "$COMMIT_HASH" "env COMMIT_HASH is required"
+  assert "$COMMIT_USER" "env COMMIT_USER is required"
+  assert "$PIPELINE_URL" "env PIPELINE_URL is required"
+
+  local NOBOT_TITLE="[❌ ] ${PROJECT_NAME} 发布失败"
+  local STATUS=$(zmicro builder-node pipeline status)
+  export NOBOT_URL=$NOTIFY_URL
+
+  if [ "${STATUS}" = "SUCCESS" ]; then
+    export NOBOT_TITLE="[✅ ] ${PROJECT_NAME} 发布成功"
+  fi
+
+echo "Notify Message: "
+echo "####################"
+printf "%-12s %-20s\n" "Status:" "${STATUS}"
+printf "%-12s %-20s\n" "Repo:" "${PROJECT_URL}"
+printf "%-12s %-20s\n" "Branch:" "${BRANCH}"
+printf "%-12s %-20s\n" "Commit:" "${COMMIT_MESSAGE}"
+printf "%-12s %-20s\n" "Hash:" "${COMMIT_HASH}"
+printf "%-12s %-20s\n" "Committer:" "${COMMIT_USER}"
+printf "%-12s %-20s\n" "Pipeline:" "${PIPELINE_URL}"
+printf "%-12s %-20s\n" "Image:" "${BASE_IMAGE}"
+printf "%-12s %-20s\n" "Server:" "${GIT_SERVER}"
+printf "%-12s %-20s\n" "Runner:" "${RUNNER_NAME} ($RUNNER_VERSION, $RUNNER_ARCH)"
+printf "%-12s %-20s\n" "Timestamp:" "${TIMESTAMP}"
+echo "####################"
+
+  local message=$(
+    cat <<-END
+* Status: ${STATUS}
+* Repo: ${PROJECT_URL}
+* Branch: ${BRANCH}
+* Commit: ${COMMIT_MESSAGE}
+* Hash: ${COMMIT_HASH}
+* Committer: ${COMMIT_USER}
+* Pipeline: ${PIPELINE_URL}
+* Image: ${BASE_IMAGE}
+* Server: ${GIT_SERVER}
+* Runner: ${RUNNER_NAME} ($RUNNER_VERSION, $RUNNER_ARCH)
+* Timestamp: ${TIMESTAMP}
+END
+)
+
+  nobot \
+    -t "$NOBOT_TITLE" \
+    -m "$message"
+}
+
+run() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  core "$@"
+}
+
+run "$@"

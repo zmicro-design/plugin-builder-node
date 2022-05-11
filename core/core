@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# vm::os get the system os
+vm::os() {
+  local os="unknown-linux-gnu"
+
+  uname -a | grep "Darwin" >> /dev/null 2>&1
+  if [ $? == 0 ]; then
+    os="apple-darwin"
+  fi
+
+  echo $os
+}
+
+# vm::arch gets the system arch
+vm::arch() {
+  local arch="x86_64"
+
+  uname -m | grep "arm64" >> /dev/null 2>&1
+  if [ $? == 0 ]; then
+    arch="aarch64"
+  else
+    uname -m | grep "armv7" >> /dev/null 2>&1
+    if [ $? == 0 ]; then
+      arch="armv7"
+    fi
+  fi
+
+  echo $arch
+}
+
+export -f vm::os
+export -f vm::arch
