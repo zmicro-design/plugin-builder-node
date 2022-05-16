@@ -35,3 +35,7 @@ RUN npm i -g @cliz/gpm \
 
 # @INSTEAD
 RUN zmicro plugin install builder-node
+
+# WORKDIR /app
+
+# RUN git config --global --add safe.directory /app

@@ -3,9 +3,11 @@ version: '3.7'
 services:
   app:
     restart: always
-    build:
-      context: .
+    # build:
+    #   context: .
+    image: whatwewant/node-builder:v16-1.5.2
     command: sleep infinity
+    working_dir: /usr/local/lib/zmicro/plugins/builder-node
     environment:
       GIT_USER: git_user
       GIT_EMAIL: git_email@email
@@ -28,5 +30,9 @@ services:
       CI_SERVER_VERSION: 12.6.0-ee
       CI_RUNNER_VERSION: 14.10.0
       CI_RUNNER_EXECUTABLE_ARCH: linux/amd64
+      PLUGIN_BUILDER_NODE_EXTRA_INFO: |
+        CUSTOM MESSAGE LINE1
+        CUSTOM MESSAGE LINE2
+
     volumes:
       - .:/usr/local/lib/zmicro/plugins/builder-node

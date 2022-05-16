@@ -80,7 +80,7 @@ printf "%-12s %-20s\n" "Status:" "${STATUS}"
 printf "%-12s %-20s\n" "Repo:" "${PROJECT_URL}"
 printf "%-12s %-20s\n" "Branch:" "${BRANCH}"
 printf "%-12s %-20s\n" "Commit:" "${COMMIT_MESSAGE}"
-printf "%-12s %-20s\n" "Publish:" "${PUBLISH_MESSAGE}"
+# printf "%-12s %-20s\n" "Publish:" "${PUBLISH_MESSAGE}"
 printf "%-12s %-20s\n" "Hash:" "${COMMIT_HASH}"
 printf "%-12s %-20s\n" "Committer:" "${COMMIT_USER}"
 printf "%-12s %-20s\n" "Pipeline:" "${PIPELINE_URL}"
@@ -88,6 +88,8 @@ printf "%-12s %-20s\n" "Image:" "${BASE_IMAGE}"
 printf "%-12s %-20s\n" "Server:" "${GIT_SERVER}"
 printf "%-12s %-20s\n" "Runner:" "${RUNNER_NAME} ($RUNNER_VERSION, $RUNNER_ARCH)"
 printf "%-12s %-20s\n" "Timestamp:" "${TIMESTAMP}"
+echo ""
+echo "$PLUGIN_BUILDER_NODE_EXTRA_INFO"
 echo "####################"
 
   local message=$(
@@ -96,7 +98,6 @@ echo "####################"
 * Repo: ${PROJECT_URL}
 * Branch: ${BRANCH}
 * Commit: ${COMMIT_MESSAGE}
-* Publish: ${PUBLISH_MESSAGE}
 * Hash: ${COMMIT_HASH}
 * Committer: ${COMMIT_USER}
 * Pipeline: ${PIPELINE_URL}
@@ -104,6 +105,8 @@ echo "####################"
 * Server: ${GIT_SERVER}
 * Runner: ${RUNNER_NAME} ($RUNNER_VERSION, $RUNNER_ARCH)
 * Timestamp: ${TIMESTAMP}
+
+${PLUGIN_BUILDER_NODE_EXTRA_INFO}
 END
 )
 
