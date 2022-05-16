@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  app:
+    restart: always
+    build:
+      context: .
+    command: sleep infinity
+    environment:
+      GIT_USER: git_user
+      GIT_EMAIL: git_email@email
+      GIT_TOKEN: git_token
+      GIT_REPO: http://example.com/repo.git
+      NPM_AUTH_TOKEN: npm_auth_token
+      NOTIFY_URL: https://open.feishu.cn/open-apis/bot/v2/hook/xxxxx
+      # GitLab CI
+      CI_PROJECT_NAME: project_name
+      CI_PROJECT_URL: http://example.com/project
+      CI_COMMIT_SHORT_SHA: commit_sha
+      GITLAB_USER_NAME: gitlab_user_name
+      CI_PIPELINE_URL: http://example.com/pipeline
+      CI_COMMIT_BRANCH: master
+      GITLAB_USER_NAME: zero
+      GITLAB_USER_EMAIL: zero@zcorky.com
+      CI_COMMIT_TITLE: commit message here
+      CI_JOB_IMAGE: whatwewant/node:v16-1.3.1
+      CI_SERVER_NAME: GitLab
+      CI_SERVER_VERSION: 12.6.0-ee
+      CI_RUNNER_VERSION: 14.10.0
+      CI_RUNNER_EXECUTABLE_ARCH: linux/amd64
+    volumes:
+      - .:/usr/local/lib/zmicro/plugins/builder-node
