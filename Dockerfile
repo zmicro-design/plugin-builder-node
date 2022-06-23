@@ -40,5 +40,7 @@ RUN zmicro plugin install builder-node
 
 # RUN git config --global --add safe.directory /app
 
-RUN mkdir -p /root/.npm && npm -g config set prefix /root/.npm
+RUN npm -g config set prefix /root/.npm
+
+RUN yarn global config set cache-folder /root/.yarn
 
