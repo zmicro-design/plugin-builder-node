@@ -42,5 +42,7 @@ RUN zmicro plugin install builder-node
 
 RUN npm -g config set prefix /root/.npm
 
+RUN npm i -g yarn
+
 RUN yarn global config set cache-folder /root/.yarn
 
