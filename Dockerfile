@@ -40,5 +40,5 @@ RUN zmicro plugin install builder-node
 
 # RUN git config --global --add safe.directory /app
 
-RUN mkdir -p /root/.node && npm -g config set prefix /root/.node
+RUN mkdir -p /root/.npm && npm -g config set prefix /root/.npm
 
