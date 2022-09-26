@@ -16,7 +16,7 @@ ENV ZMICRO_VERSION=v1
 RUN NO_LOG=true curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | bash
 
 # @FIX NPM 7 break package-lock.json
-RUN npm i -g npm@6
+# RUN npm i -g npm@6
 
 # @TODO permission denied
 #   EACCES current user ("nobody") does not have permission to access the dev dir "/root/.cache/node-gyp/16.14.2"
