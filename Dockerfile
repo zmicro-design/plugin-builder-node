@@ -10,7 +10,7 @@ RUN apk add --no-cache python3 make g++ git wget curl grep bash
 
 # ENV HTTPS_PROXY http://192.168.31.39:17890
 
-ENV ZMICRO_VERSION=v1.15.23
+ENV ZMICRO_VERSION=v1
 
 # Advance System Helper
 RUN NO_LOG=true curl -o- https://raw.githubusercontent.com/zcorky/zmicro/master/install | bash
